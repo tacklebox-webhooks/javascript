@@ -22,6 +22,38 @@ class WebhookInputError extends Error {
   }
 }
 
+const newError = (error_type, detail) => {
+  return {
+    Error: {
+      error_type,
+      detail,
+    },
+  };
+};
+
+const errorTypes = {
+  missing_parameter: "missing_parameter",
+  max_retries_reached: "max_retries_reached",
+};
+
+const isValid = {
+  id(id) {
+    return id && typeof id === "string";
+  },
+  serviceId: this.id(id),
+  userId: this.id(id),
+  eventTypeId: this.id(id),
+  subscriptionId: this.id(id),
+  eventId: this.id(id),
+  messageId: this.id(id),
+  eventTypeData(data) {
+    return !!data.name;
+  },
+};
+
 exports.WebhookVerificationError = WebhookVerificationError;
 exports.WebhookCommunicationError = WebhookCommunicationError;
 exports.WebhookInputError = WebhookInputError;
+exports.newError = newError;
+exports.errorTypes = errorTypes;
+exports.isValid = isValid;

@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { WebhookCommunicationError } = require("./error");
+const { newError, errorTypes } = require("./error");
 
 class HttpClient {
   constructor(apiKey) {
@@ -16,14 +16,16 @@ class HttpClient {
     try {
       const response = await axios(config);
       return response.data;
-    } catch (err) {
+    } catch (error) {
+      console.log(error);
       if (request.attempt < this.MAX_RETRY_ATTEMPTS) {
         request.attempts += 1;
         return this.send(request);
       }
-      throw new WebhookCommunicationError(
-        `Webhook service could not be ` +
-          `reached after ${this.MAX_RETRY_ATTEMPTS} retries.`
+
+      return newError(
+        errorTypes.max_retries_reached,
+        "Webhook server did not respond."
       );
     }
   }
@@ -33,6 +35,7 @@ class HttpClient {
       method: request.method,
       url: request.url,
       headers: this.headers,
+      timeout: 5000,
     };
 
     if (request.data) {

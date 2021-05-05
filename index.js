@@ -7,9 +7,9 @@ const EventApi = require("./apis/event");
 const MessageApi = require("./apis/message");
 
 class CaptainHook {
-  constructor(apiKey) {
+  constructor(apiKey, serviceUrl) {
     const config = {
-      baseUrl: "www.whatever.com", // AWS API Gateway entry point
+      baseUrl: serviceUrl// this will be different for each user of the service
       apiKey,
     };
 

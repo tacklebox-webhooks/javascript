@@ -19,11 +19,11 @@ class ServiceApi {
     return await httpClient.send(request);
   }
 
-  async deleteService(serviceId) {
-    const url = `${this.baseUrl}/${serviceId}`;
-    const request = new HttpRequest("DELETE", url);
-    return await httpClient.send(request);
-  }
+  // async deleteService(serviceId) {
+  //   const url = `${this.baseUrl}/${serviceId}`;
+  //   const request = new HttpRequest("DELETE", url);
+  //   return await httpClient.send(request);
+  // }
 
   async getService(serviceId) {
     const url = `${this.baseUrl}/${serviceId}`;
@@ -31,11 +31,11 @@ class ServiceApi {
     return await httpClient.send(request);
   }
 
-  async updateService(serviceId, serviceData) {
-    const url = `${this.baseUrl}/${serviceId}`;
-    const request = new HttpRequest("PUT", url, serviceData);
-    return await httpClient.send(request);
-  }
+  // async updateService(serviceId, serviceData) {
+  //   const url = `${this.baseUrl}/${serviceId}`;
+  //   const request = new HttpRequest("PUT", url, serviceData);
+  //   return await httpClient.send(request);
+  // }
 }
 
 exports.ServiceApi = ServiceApi;
