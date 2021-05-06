@@ -1,27 +1,68 @@
-class WebhookVerificationError extends Error {
-  constructor(message) {
-    super(message);
-    Object.setPrototypeOf(this, WebhookVerificationError.prototype);
-    this.name = "WebhookVerificationError";
-  }
-}
+const newError = (error_type, detail) => {
+  return {
+    Error: {
+      error_type,
+      detail,
+    },
+  };
+};
 
-class WebhookCommunicationError extends Error {
-  constructor(message) {
-    super(message);
-    Object.setPrototypeOf(this, WebhookCommunicationError.prototype);
-    this.name = "WebhookCommunicationError";
-  }
-}
+const errorTypes = {
+  missing_parameter: "missing_parameter",
+  max_retries_reached: "max_retries_reached",
+};
 
-class WebhookInputError extends Error {
-  constructor(message) {
-    super(message);
-    Object.setPrototypeOf(this, WebhookInputError.prototype);
-    this.name = "WebhookInputError";
-  }
-}
+const isValid = {
+  id(id) {
+    return id && typeof id === "string";
+  },
+  name(data) {
+    return data.name && typeof data.name === "string";
+  },
+  serviceId(id) {
+    return this.id(id);
+  },
+  serviceData(data) {
+    return this.name(data);
+  },
+  eventTypeId(id) {
+    return this.id(id);
+  },
+  eventTypeData(data) {
+    return this.name(data);
+  },
+  userId(id) {
+    return this.id(id);
+  },
+  userData(data) {
+    return this.name(data);
+  },
+  subscriptionId(id) {
+    return this.id(id);
+  },
+  subscriptionData(data) {
+    return (
+      data.url &&
+      typeof data.url === "string" &&
+      data.eventTypes &&
+      data.eventTypes.length > 0
+    );
+  },
+  eventId(id) {
+    return this.id(id);
+  },
+  eventData(data) {
+    return (
+      data.event_type_id &&
+      typeof data.event_type_id === "string" &&
+      data.payload
+    );
+  },
+  messageId(id) {
+    return this.id(id);
+  },
+};
 
-exports.WebhookVerificationError = WebhookVerificationError;
-exports.WebhookCommunicationError = WebhookCommunicationError;
-exports.WebhookInputError = WebhookInputError;
+module.exports.newError = newError;
+module.exports.errorTypes = errorTypes;
+module.exports.isValid = isValid;

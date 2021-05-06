@@ -7,14 +7,14 @@ const EventApi = require("./apis/event");
 const MessageApi = require("./apis/message");
 
 class CaptainHook {
-  constructor(apiKey) {
+  constructor(apiKey, serviceUrl) {
     const config = {
-      baseUrl: "www.whatever.com", // AWS API Gateway entry point
+      baseUrl: serviceUrl, // this will be different for each user of the service
       apiKey,
     };
 
     this.configuration = config;
-    this.authorization = new Authorization(config);
+    // this.authorization = new Authorization(config);
     this.service = new Service(config);
     this.eventType = new EventType(config);
     this.user = new User(config);
@@ -25,17 +25,17 @@ class CaptainHook {
 }
 exports.CaptainHook = CaptainHook;
 
-class Authorization {
-  constructor(config) {
-    this.api = new AuthorizationApi(config);
-  }
-  authorizeDashboardUser(serviceId, userId) {
-    return this.api.authorizeDashboardUser(serviceId, userId);
-  }
-  logout(serviceId, userId) {
-    return this.api.logoutDashboardUser(serviceId, userId);
-  }
-}
+// class Authorization {
+//   constructor(config) {
+//     this.api = new AuthorizationApi(config);
+//   }
+//   async authorizeDashboardUser(serviceId, userId) {
+//     return await this.api.authorizeDashboardUser(serviceId, userId);
+//   }
+//   async logout(serviceId, userId) {
+//     return await this.api.logoutDashboardUser(serviceId, userId);
+//   }
+// }
 
 class Service {
   constructor(config) {
@@ -47,15 +47,12 @@ class Service {
   async create(serviceData) {
     return await this.api.createService(serviceData);
   }
-  async delete(serviceId) {
-    return await this.api.deleteService(serviceId);
-  }
   async get(serviceId) {
     return await this.api.getService(serviceId);
   }
-  async update(serviceId, serviceData) {
-    return await this.api.deleteService(serviceId, serviceData);
-  }
+  // async delete(serviceId) {
+  //   return await this.api.deleteService(serviceId);
+  // }
 }
 
 class EventType {
@@ -63,73 +60,74 @@ class EventType {
     this.api = new EventTypeApi(config);
   }
   async list(serviceId) {
-    return this.api.listEventTypes(serviceId);
+    return await this.api.listEventTypes(serviceId);
   }
   async create(serviceId, eventTypeData) {
-    return this.api.createEventType(serviceId, eventTypeData);
-  }
-  async delete(serviceId, eventTypeId) {
-    return this.api.deleteEventType(serviceId, eventTypeId);
+    return await this.api.createEventType(serviceId, eventTypeData);
   }
   async get(serviceId, eventTypeId) {
-    return this.api.getEventType(serviceId, eventTypeId);
+    return await this.api.getEventType(serviceId, eventTypeId);
   }
-  async update(serviceId, eventTypeId, serviceData) {
-    return await this.api.deleteService(serviceId, eventTypeId, serviceData);
-  }
+  // async delete(serviceId, eventTypeId) {
+  //   return await this.api.deleteEventType(serviceId, eventTypeId);
+  // }
 }
 
 class User {
   constructor(config) {
     this.api = new UserApi(config);
   }
-  create(serviceId, userData) {
-    return this.api.createUser(serviceId, userData);
+  async list(serviceId) {
+    return await this.api.listUsers(serviceId);
   }
-  get(serviceId, userId) {
-    return this.api.getUser(serviceId, userId);
+  async create(serviceId, userData) {
+    return await this.api.createUser(serviceId, userData);
   }
-  list(serviceId) {
-    return this.api.listUsers(serviceId);
+  async get(serviceId, userId) {
+    return await this.api.getUser(serviceId, userId);
   }
-  delete(serviceId, userId) {
-    return this.api.deleteUser(serviceId, userId);
-  }
+  // async delete(serviceId, userId) {
+  //   return this.api.deleteUser(serviceId, userId);
+  // }
 }
 
 class Subscription {
   constructor(config) {
     this.api = new SubscriptionApi(config);
   }
-  create(serviceId, userId, subscriptionData) {
-    return this.api.createSubscription(serviceId, userId, subscriptionData);
+  async list(serviceId, userId) {
+    return await this.api.listSubscriptions(serviceId, userId);
   }
-  get(serviceId, userId, subscriptionId) {
-    return this.api.getSubscription(serviceId, userId, subscriptionId);
+  async create(serviceId, userId, subscriptionData) {
+    return await this.api.createSubscription(
+      serviceId,
+      userId,
+      subscriptionData
+    );
   }
-  list(serviceId, userId) {
-    return this.api.listSubscriptions(serviceId, userId);
+  async get(serviceId, userId, subscriptionId) {
+    return await this.api.getSubscription(serviceId, userId, subscriptionId);
   }
-  delete(serviceId, userId, subscriptionId) {
-    return this.api.deleteSubscription(serviceId, userId, subscriptionId);
-  }
-  getSecret(serviceId, userId, subscriptionId) {
-    return this.api.getSecret(serviceId, userId, subscriptionId);
-  }
+  // async getSecret(serviceId, userId, subscriptionId) {
+  //   return await this.api.getSecret(serviceId, userId, subscriptionId);
+  // }
+  // async delete(serviceId, userId, subscriptionId) {
+  //   return await this.api.deleteSubscription(serviceId, userId, subscriptionId);
+  // }
 }
 
 class Event {
   constructor(config) {
     this.api = new EventApi(config);
   }
-  create(serviceId, userId, eventData) {
-    return this.api.createEvent(serviceId, userId, eventData);
+  async list(serviceId, userId) {
+    return await this.api.listEvents(serviceId, userId);
   }
-  get(serviceId, userId, eventId) {
-    return this.api.getEvent(serviceId, userId, eventId);
+  async create(serviceId, userId, eventData) {
+    return await this.api.createEvent(serviceId, userId, eventData);
   }
-  list(serviceId, userId) {
-    return this.api.listEvents(serviceId, userId);
+  async get(serviceId, userId, eventId) {
+    return await this.api.getEvent(serviceId, userId, eventId);
   }
 }
 
@@ -137,14 +135,13 @@ class Message {
   constructor(config) {
     this.api = new MessageApi(config);
   }
-  create(serviceId, userId, messageData) {
-    return this.api.createMessage(serviceId, userId, messageData);
+  async list(serviceId, userId) {
+    return await this.api.listMessages(serviceId, userId);
   }
-  get(serviceId, userId, messageId) {
-    return this.api.getMessage(serviceId, userId, messageId);
+  async resend(serviceId, userId, messageId) {
+    return await this.api.resendMessage(serviceId, userId, messageId);
   }
-  list(serviceId, userId, options) {
-    // options will dictate whether message should be pulled per subscription, user, or service
-    return this.api.listMessages(serviceId, userId, options);
+  async get(serviceId, userId, messageId) {
+    return await this.api.getMessage(serviceId, userId, messageId);
   }
 }
