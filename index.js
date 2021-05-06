@@ -15,7 +15,7 @@ class CaptainHook {
 
     this.configuration = config;
     // this.authorization = new Authorization(config);
-    // this.service = new Service(config);
+    this.service = new Service(config);
     this.eventType = new EventType(config);
     // this.user = new User(config);
     // this.subscription = new Subscription(config);
@@ -37,25 +37,23 @@ exports.CaptainHook = CaptainHook;
 //   }
 // }
 
-// class Service {
-//   constructor(config) {
-//     console.log(ServiceApi);
-//     console.log(typeof ServiceApi);
-//     this.api = new ServiceApi(config);
-//   }
-//   async list() {
-//     return await this.api.listServices();
-//   }
-//   async create(serviceData) {
-//     return await this.api.createService(serviceData);
-//   }
-//   // async delete(serviceId) {
-//   //   return await this.api.deleteService(serviceId);
-//   // }
-//   async get(serviceId) {
-//     return await this.api.getService(serviceId);
-//   }
-// }
+class Service {
+  constructor(config) {
+    this.api = new ServiceApi(config);
+  }
+  async list() {
+    return await this.api.listServices();
+  }
+  async create(serviceData) {
+    return await this.api.createService(serviceData);
+  }
+  // async delete(serviceId) {
+  //   return await this.api.deleteService(serviceId);
+  // }
+  async get(serviceId) {
+    return await this.api.getService(serviceId);
+  }
+}
 
 class EventType {
   constructor(config) {

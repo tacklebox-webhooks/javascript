@@ -19,11 +19,14 @@ const isValid = {
   serviceId(id) {
     return this.id(id);
   },
+  serviceData(data) {
+    return data.name && typeof data.name === "string";
+  },
   eventTypeId(id) {
     return this.id(id);
   },
   eventTypeData(data) {
-    return !!data.name;
+    return data.name && typeof data.name === "string";
   },
   userId(id) {
     return this.id(id);
