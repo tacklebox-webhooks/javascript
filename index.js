@@ -19,7 +19,7 @@ class CaptainHook {
     this.eventType = new EventType(config);
     this.user = new User(config);
     this.subscription = new Subscription(config);
-    // this.event = new Event(config);
+    this.event = new Event(config);
     // this.message = new Message(config);
   }
 }
@@ -29,11 +29,11 @@ exports.CaptainHook = CaptainHook;
 //   constructor(config) {
 //     this.api = new AuthorizationApi(config);
 //   }
-//   authorizeDashboardUser(serviceId, userId) {
-//     return this.api.authorizeDashboardUser(serviceId, userId);
+//   async authorizeDashboardUser(serviceId, userId) {
+//     return await this.api.authorizeDashboardUser(serviceId, userId);
 //   }
-//   logout(serviceId, userId) {
-//     return this.api.logoutDashboardUser(serviceId, userId);
+//   async logout(serviceId, userId) {
+//     return await this.api.logoutDashboardUser(serviceId, userId);
 //   }
 // }
 
@@ -69,7 +69,7 @@ class EventType {
     return await this.api.getEventType(serviceId, eventTypeId);
   }
   // async delete(serviceId, eventTypeId) {
-  //   return this.api.deleteEventType(serviceId, eventTypeId);
+  //   return await this.api.deleteEventType(serviceId, eventTypeId);
   // }
 }
 
@@ -86,7 +86,7 @@ class User {
   async get(serviceId, userId) {
     return await this.api.getUser(serviceId, userId);
   }
-  // delete(serviceId, userId) {
+  // async delete(serviceId, userId) {
   //   return this.api.deleteUser(serviceId, userId);
   // }
 }
@@ -108,28 +108,28 @@ class Subscription {
   async get(serviceId, userId, subscriptionId) {
     return await this.api.getSubscription(serviceId, userId, subscriptionId);
   }
-  // getSecret(serviceId, userId, subscriptionId) {
-  //   return this.api.getSecret(serviceId, userId, subscriptionId);
+  // async getSecret(serviceId, userId, subscriptionId) {
+  //   return await this.api.getSecret(serviceId, userId, subscriptionId);
   // }
-  // delete(serviceId, userId, subscriptionId) {
-  //   return this.api.deleteSubscription(serviceId, userId, subscriptionId);
+  // async delete(serviceId, userId, subscriptionId) {
+  //   return await this.api.deleteSubscription(serviceId, userId, subscriptionId);
   // }
 }
 
-// class Event {
-//   constructor(config) {
-//     this.api = new EventApi(config);
-//   }
-//   create(serviceId, userId, eventData) {
-//     return this.api.createEvent(serviceId, userId, eventData);
-//   }
-//   get(serviceId, userId, eventId) {
-//     return this.api.getEvent(serviceId, userId, eventId);
-//   }
-//   list(serviceId, userId) {
-//     return this.api.listEvents(serviceId, userId);
-//   }
-// }
+class Event {
+  constructor(config) {
+    this.api = new EventApi(config);
+  }
+  async list(serviceId, userId) {
+    return await this.api.listEvents(serviceId, userId);
+  }
+  async create(serviceId, userId, eventData) {
+    return await this.api.createEvent(serviceId, userId, eventData);
+  }
+  async get(serviceId, userId, eventId) {
+    return await this.api.getEvent(serviceId, userId, eventId);
+  }
+}
 
 // class Message {
 //   constructor(config) {

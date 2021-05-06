@@ -51,6 +51,13 @@ const isValid = {
   eventId(id) {
     return this.id(id);
   },
+  eventData(data) {
+    return (
+      data.event_type_id &&
+      typeof data.event_type_id === "string" &&
+      data.payload
+    );
+  },
   messageId(id) {
     return this.id(id);
   },
