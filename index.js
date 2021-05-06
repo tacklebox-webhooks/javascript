@@ -18,7 +18,7 @@ class CaptainHook {
     this.service = new Service(config);
     this.eventType = new EventType(config);
     this.user = new User(config);
-    // this.subscription = new Subscription(config);
+    this.subscription = new Subscription(config);
     // this.event = new Event(config);
     // this.message = new Message(config);
   }
@@ -47,12 +47,12 @@ class Service {
   async create(serviceData) {
     return await this.api.createService(serviceData);
   }
-  // async delete(serviceId) {
-  //   return await this.api.deleteService(serviceId);
-  // }
   async get(serviceId) {
     return await this.api.getService(serviceId);
   }
+  // async delete(serviceId) {
+  //   return await this.api.deleteService(serviceId);
+  // }
 }
 
 class EventType {
@@ -65,52 +65,56 @@ class EventType {
   async create(serviceId, eventTypeData) {
     return await this.api.createEventType(serviceId, eventTypeData);
   }
-  // async delete(serviceId, eventTypeId) {
-  //   return this.api.deleteEventType(serviceId, eventTypeId);
-  // }
   async get(serviceId, eventTypeId) {
     return await this.api.getEventType(serviceId, eventTypeId);
   }
+  // async delete(serviceId, eventTypeId) {
+  //   return this.api.deleteEventType(serviceId, eventTypeId);
+  // }
 }
 
 class User {
   constructor(config) {
     this.api = new UserApi(config);
   }
-  create(serviceId, userData) {
-    return this.api.createUser(serviceId, userData);
+  async list(serviceId) {
+    return await this.api.listUsers(serviceId);
   }
-  get(serviceId, userId) {
-    return this.api.getUser(serviceId, userId);
+  async create(serviceId, userData) {
+    return await this.api.createUser(serviceId, userData);
   }
-  list(serviceId) {
-    return this.api.listUsers(serviceId);
+  async get(serviceId, userId) {
+    return await this.api.getUser(serviceId, userId);
   }
   // delete(serviceId, userId) {
   //   return this.api.deleteUser(serviceId, userId);
   // }
 }
 
-// class Subscription {
-//   constructor(config) {
-//     this.api = new SubscriptionApi(config);
-//   }
-//   create(serviceId, userId, subscriptionData) {
-//     return this.api.createSubscription(serviceId, userId, subscriptionData);
-//   }
-//   get(serviceId, userId, subscriptionId) {
-//     return this.api.getSubscription(serviceId, userId, subscriptionId);
-//   }
-//   list(serviceId, userId) {
-//     return this.api.listSubscriptions(serviceId, userId);
-//   }
-//   delete(serviceId, userId, subscriptionId) {
-//     return this.api.deleteSubscription(serviceId, userId, subscriptionId);
-//   }
-//   getSecret(serviceId, userId, subscriptionId) {
-//     return this.api.getSecret(serviceId, userId, subscriptionId);
-//   }
-// }
+class Subscription {
+  constructor(config) {
+    this.api = new SubscriptionApi(config);
+  }
+  async list(serviceId, userId) {
+    return await this.api.listSubscriptions(serviceId, userId);
+  }
+  async create(serviceId, userId, subscriptionData) {
+    return await this.api.createSubscription(
+      serviceId,
+      userId,
+      subscriptionData
+    );
+  }
+  async get(serviceId, userId, subscriptionId) {
+    return await this.api.getSubscription(serviceId, userId, subscriptionId);
+  }
+  // getSecret(serviceId, userId, subscriptionId) {
+  //   return this.api.getSecret(serviceId, userId, subscriptionId);
+  // }
+  // delete(serviceId, userId, subscriptionId) {
+  //   return this.api.deleteSubscription(serviceId, userId, subscriptionId);
+  // }
+}
 
 // class Event {
 //   constructor(config) {

@@ -40,6 +40,14 @@ const isValid = {
   subscriptionId(id) {
     return this.id(id);
   },
+  subscriptionData(data) {
+    return (
+      data.url &&
+      typeof data.url === "string" &&
+      data.eventTypes &&
+      data.eventTypes.length > 0
+    );
+  },
   eventId(id) {
     return this.id(id);
   },
