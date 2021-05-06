@@ -20,7 +20,7 @@ class CaptainHook {
     this.user = new User(config);
     this.subscription = new Subscription(config);
     this.event = new Event(config);
-    // this.message = new Message(config);
+    this.message = new Message(config);
   }
 }
 exports.CaptainHook = CaptainHook;
@@ -131,18 +131,17 @@ class Event {
   }
 }
 
-// class Message {
-//   constructor(config) {
-//     this.api = new MessageApi(config);
-//   }
-//   create(serviceId, userId, messageData) {
-//     return this.api.createMessage(serviceId, userId, messageData);
-//   }
-//   get(serviceId, userId, messageId) {
-//     return this.api.getMessage(serviceId, userId, messageId);
-//   }
-//   list(serviceId, userId, options) {
-//     // options will dictate whether message should be pulled per subscription, user, or service
-//     return this.api.listMessages(serviceId, userId, options);
-//   }
-// }
+class Message {
+  constructor(config) {
+    this.api = new MessageApi(config);
+  }
+  async list(serviceId, userId) {
+    return await this.api.listMessages(serviceId, userId);
+  }
+  async resend(serviceId, userId, messageId) {
+    return await this.api.resendMessage(serviceId, userId, messageId);
+  }
+  async get(serviceId, userId, messageId) {
+    return await this.api.getMessage(serviceId, userId, messageId);
+  }
+}
