@@ -4,30 +4,11 @@ const { newError, errorTypes } = require("./error");
 class HttpClient {
   constructor(apiKey) {
     this.MAX_RETRY_ATTEMPTS = 5;
+    this.MAX_TIMEOUT = 5000;
     this.headers = {
-      Authorization: apiKey,
+      // Authorization: apiKey,
       "Content-Type": "application/json",
     };
-  }
-
-  async send(request) {
-    const config = this.extractConfig(request);
-
-    try {
-      const response = await axios(config);
-      return response.data;
-    } catch (error) {
-      console.log(error);
-      if (request.attempt < this.MAX_RETRY_ATTEMPTS) {
-        request.attempts += 1;
-        return this.send(request);
-      }
-
-      return newError(
-        errorTypes.max_retries_reached,
-        "Webhook server did not respond."
-      );
-    }
   }
 
   extractConfig(request) {
@@ -35,7 +16,7 @@ class HttpClient {
       method: request.method,
       url: request.url,
       headers: this.headers,
-      timeout: 5000,
+      timeout: this.MAX_TIMEOUT,
     };
 
     if (request.data) {
@@ -44,6 +25,35 @@ class HttpClient {
 
     return config;
   }
+
+  async send(request) {
+    const config = this.extractConfig(request);
+
+    while (request.attempt <= this.MAX_RETRY_ATTEMPTS) {
+      try {
+        const response = await axios(config);
+        return response.data;
+      } catch (error) {
+        if (error.code !== "ECONNABORTED") {
+          console.log(`Error: ${error.response.status} response`);
+          console.log(error.response.statusText);
+          console.log(error.response.data);
+          const webhookError = error.response.data;
+          return newError(webhookError.error_type, webhookError.detail);
+        }
+
+        console.log(`Error: exceeded max timeout of ${config.timeout}ms.`);
+        if (request.attempt >= this.MAX_RETRY_ATTEMPTS) {
+          return newError(
+            errorTypes.max_retries_reached,
+            "Webhook server did not respond after multiple retries."
+          );
+        }
+
+        request.attempt += 1;
+      }
+    }
+  }
 }
 
-exports.HttpClient = HttpClient;
+module.exports = HttpClient;

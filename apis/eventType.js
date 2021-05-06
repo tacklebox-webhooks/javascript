@@ -18,7 +18,7 @@ class EventTypeApi {
 
     const url = `${this.baseUrl}/${serviceId}/event_types`;
     const request = new HttpRequest("GET", url);
-    return await httpClient.send(request);
+    return await this.httpClient.send(request);
   }
 
   async createEventType(serviceId, eventTypeData) {
@@ -36,7 +36,7 @@ class EventTypeApi {
 
     const url = `${this.baseUrl}/${serviceId}/event_types`;
     const request = new HttpRequest("POST", url, eventTypeData);
-    return await httpClient.send(request);
+    return await this.httpClient.send(request);
   }
 
   // async deleteEventType(serviceId, eventTypeId) {
@@ -60,8 +60,8 @@ class EventTypeApi {
 
     const url = `${this.baseUrl}/${serviceId}/event_types/${eventTypeId}`;
     const request = new HttpRequest("GET", url);
-    return await httpClient.send(request);
+    return await this.httpClient.send(request);
   }
 }
 
-exports.EventTypeApi = EventTypeApi;
+module.exports = EventTypeApi;

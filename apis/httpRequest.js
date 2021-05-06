@@ -7,4 +7,4 @@ class HttpRequest {
   }
 }
 
-exports.HttpRequest = HttpRequest;
+module.exports = HttpRequest;

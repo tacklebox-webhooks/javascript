@@ -1,27 +1,3 @@
-class WebhookVerificationError extends Error {
-  constructor(message) {
-    super(message);
-    Object.setPrototypeOf(this, WebhookVerificationError.prototype);
-    this.name = "WebhookVerificationError";
-  }
-}
-
-class WebhookCommunicationError extends Error {
-  constructor(message) {
-    super(message);
-    Object.setPrototypeOf(this, WebhookCommunicationError.prototype);
-    this.name = "WebhookCommunicationError";
-  }
-}
-
-class WebhookInputError extends Error {
-  constructor(message) {
-    super(message);
-    Object.setPrototypeOf(this, WebhookInputError.prototype);
-    this.name = "WebhookInputError";
-  }
-}
-
 const newError = (error_type, detail) => {
   return {
     Error: {
@@ -40,20 +16,29 @@ const isValid = {
   id(id) {
     return id && typeof id === "string";
   },
-  serviceId: this.id(id),
-  userId: this.id(id),
-  eventTypeId: this.id(id),
-  subscriptionId: this.id(id),
-  eventId: this.id(id),
-  messageId: this.id(id),
+  serviceId(id) {
+    return this.id(id);
+  },
+  eventTypeId(id) {
+    return this.id(id);
+  },
   eventTypeData(data) {
     return !!data.name;
   },
+  userId(id) {
+    return this.id(id);
+  },
+  subscriptionId(id) {
+    return this.id(id);
+  },
+  eventId(id) {
+    return this.id(id);
+  },
+  messageId(id) {
+    return this.id(id);
+  },
 };
 
-exports.WebhookVerificationError = WebhookVerificationError;
-exports.WebhookCommunicationError = WebhookCommunicationError;
-exports.WebhookInputError = WebhookInputError;
-exports.newError = newError;
-exports.errorTypes = errorTypes;
-exports.isValid = isValid;
+module.exports.newError = newError;
+module.exports.errorTypes = errorTypes;
+module.exports.isValid = isValid;
