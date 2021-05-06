@@ -16,20 +16,26 @@ const isValid = {
   id(id) {
     return id && typeof id === "string";
   },
+  name(data) {
+    return data.name && typeof data.name === "string";
+  },
   serviceId(id) {
     return this.id(id);
   },
   serviceData(data) {
-    return data.name && typeof data.name === "string";
+    return this.name(data);
   },
   eventTypeId(id) {
     return this.id(id);
   },
   eventTypeData(data) {
-    return data.name && typeof data.name === "string";
+    return this.name(data);
   },
   userId(id) {
     return this.id(id);
+  },
+  userData(data) {
+    return this.name(data);
   },
   subscriptionId(id) {
     return this.id(id);

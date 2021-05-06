@@ -1,4 +1,4 @@
-// const AuthorizationApi = require("./apis/authorization");
+const AuthorizationApi = require("./apis/authorization");
 const ServiceApi = require("./apis/service");
 const EventTypeApi = require("./apis/eventType");
 const UserApi = require("./apis/user");
@@ -17,7 +17,7 @@ class CaptainHook {
     // this.authorization = new Authorization(config);
     this.service = new Service(config);
     this.eventType = new EventType(config);
-    // this.user = new User(config);
+    this.user = new User(config);
     // this.subscription = new Subscription(config);
     // this.event = new Event(config);
     // this.message = new Message(config);
@@ -73,23 +73,23 @@ class EventType {
   }
 }
 
-// class User {
-//   constructor(config) {
-//     this.api = new UserApi(config);
-//   }
-//   create(serviceId, userData) {
-//     return this.api.createUser(serviceId, userData);
-//   }
-//   get(serviceId, userId) {
-//     return this.api.getUser(serviceId, userId);
-//   }
-//   list(serviceId) {
-//     return this.api.listUsers(serviceId);
-//   }
-//   delete(serviceId, userId) {
-//     return this.api.deleteUser(serviceId, userId);
-//   }
-// }
+class User {
+  constructor(config) {
+    this.api = new UserApi(config);
+  }
+  create(serviceId, userData) {
+    return this.api.createUser(serviceId, userData);
+  }
+  get(serviceId, userId) {
+    return this.api.getUser(serviceId, userId);
+  }
+  list(serviceId) {
+    return this.api.listUsers(serviceId);
+  }
+  // delete(serviceId, userId) {
+  //   return this.api.deleteUser(serviceId, userId);
+  // }
+}
 
 // class Subscription {
 //   constructor(config) {
