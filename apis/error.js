@@ -48,6 +48,9 @@ const isValid = {
       data.eventTypes.length > 0
     );
   },
+  subscriptionUpdateData(data) {
+    return data.event_types && data.event_types.length > 0;
+  },
   eventId(id) {
     return this.id(id);
   },

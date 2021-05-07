@@ -108,6 +108,14 @@ class Subscription {
   async get(serviceId, userId, subscriptionId) {
     return await this.api.getSubscription(serviceId, userId, subscriptionId);
   }
+  async update(serviceId, userId, subscriptionId, subscriptionData) {
+    return await this.api.updateSubscription(
+      serviceId,
+      userId,
+      subscriptionId,
+      subscriptionData
+    );
+  }
   // async getSecret(serviceId, userId, subscriptionId) {
   //   return await this.api.getSecret(serviceId, userId, subscriptionId);
   // }

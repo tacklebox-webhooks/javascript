@@ -31,19 +31,19 @@ class EventApi {
     if (!isValid.serviceId(serviceId)) {
       return newError(
         errorTypes.missing_parameter,
-        "The getMessage method must be invoked with a non-empty string serviceId argument."
+        "The resendMessage method must be invoked with a non-empty string serviceId argument."
       );
     }
     if (!isValid.userId(userId)) {
       return newError(
         errorTypes.missing_parameter,
-        "The getMessage method must be invoked with a non-empty string userId argument."
+        "The resendMessage method must be invoked with a non-empty string userId argument."
       );
     }
     if (!isValid.messageId(messageId)) {
       return newError(
         errorTypes.missing_parameter,
-        "The getMessage method must be invoked with a non-empty string messageId argument."
+        "The resendMessage method must be invoked with a non-empty string messageId argument."
       );
     }
 
