@@ -6,7 +6,7 @@ const SubscriptionApi = require("./apis/subscription");
 const EventApi = require("./apis/event");
 const MessageApi = require("./apis/message");
 
-class CaptainHook {
+class Tacklebox {
   constructor(apiKey, serviceUrl) {
     const config = {
       baseUrl: serviceUrl, // this will be different for each user of the service
@@ -23,7 +23,7 @@ class CaptainHook {
     this.message = new Message(config);
   }
 }
-exports.CaptainHook = CaptainHook;
+exports.Tacklebox = Tacklebox;
 
 // class Authorization {
 //   constructor(config) {
