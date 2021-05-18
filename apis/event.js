@@ -43,7 +43,7 @@ class EventApi {
     if (!isValid.eventData(eventData)) {
       return newError(
         errorTypes.missing_parameter,
-        "The createEvent method must be invoked with an eventData argument containing non-empty event_type_id and payload properties."
+        "The createEvent method must be invoked with an eventData argument containing non-empty event_type and payload properties."
       );
     }
 
