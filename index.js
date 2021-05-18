@@ -9,8 +9,8 @@ const MessageApi = require("./apis/message");
 class Tacklebox {
   constructor(apiKey, serviceUrl) {
     const config = {
-      baseUrl: serviceUrl, // this will be different for each user of the service
       apiKey,
+      baseUrl: serviceUrl,
     };
 
     this.configuration = config;

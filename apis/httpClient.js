@@ -6,7 +6,7 @@ class HttpClient {
     this.MAX_RETRY_ATTEMPTS = 5;
     this.MAX_TIMEOUT = 5000;
     this.headers = {
-      // Authorization: apiKey,
+      "X-Api-Key": apiKey,
       "Content-Type": "application/json",
     };
   }
@@ -34,12 +34,14 @@ class HttpClient {
         const response = await axios(config);
         return response.data;
       } catch (error) {
-        if (error.code !== "ECONNABORTED") {
+        if (error.code !== "ECONNABORTED" && error.response) {
           console.log(`Error: ${error.response.status} response`);
           console.log(error.response.statusText);
           console.log(error.response.data);
           const webhookError = error.response.data;
           return newError(webhookError.error_type, webhookError.detail);
+        } else if (error.code !== "ECONNABORTED") {
+          return newError(error.code, { message: error.message });
         }
 
         console.log(`Error: exceeded max timeout of ${config.timeout}ms.`);
