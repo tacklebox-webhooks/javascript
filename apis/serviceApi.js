@@ -4,7 +4,7 @@ const { newError, isValid, errorTypes } = require("./error");
 
 class ServiceApi {
   constructor(config) {
-    this.baseUrl = `${config.baseUrl}/services`;
+    this.baseUrl = `${config.baseUrl}services`;
     this.httpClient = new HttpClient(config.apiKey);
   }
 
