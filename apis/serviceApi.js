@@ -27,11 +27,18 @@ class ServiceApi {
     return await this.httpClient.send(request);
   }
 
-  // async deleteService(serviceId) {
-  //   const url = `${this.baseUrl}/${serviceId}`;
-  //   const request = new HttpRequest("DELETE", url);
-  //   return await this.httpClient.send(request);
-  // }
+  async deleteService(serviceId) {
+    if (!isValid.serviceId(serviceId)) {
+      return newError(
+        errorTypes.missing_parameter,
+        "The deleteService method must be invoked with a non-empty string serviceId argument."
+      );
+    }
+
+    const url = `${this.baseUrl}/${serviceId}`;
+    const request = new HttpRequest("DELETE", url);
+    return await this.httpClient.send(request);
+  }
 
   async getService(serviceId) {
     if (!isValid.serviceId(serviceId)) {

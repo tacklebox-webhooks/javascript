@@ -52,6 +52,31 @@ class SubscriptionApi {
     return await this.httpClient.send(request);
   }
 
+  async deleteSubscription(serviceId, userId, subscriptionId) {
+    if (!isValid.serviceId(serviceId)) {
+      return newError(
+        errorTypes.missing_parameter,
+        "The deleteSubscription method must be invoked with a non-empty string serviceId argument."
+      );
+    }
+    if (!isValid.userId(userId)) {
+      return newError(
+        errorTypes.missing_parameter,
+        "The deleteSubscription method must be invoked with a non-empty string userId argument."
+      );
+    }
+    if (!isValid.subscriptionId(subscriptionId)) {
+      return newError(
+        errorTypes.missing_parameter,
+        "The deleteSubscription method must be invoked with a non-empty string subscriptionId argument."
+      );
+    }
+
+    const url = `${this.baseUrl}/${serviceId}/users/${userId}/subscriptions/${subscriptionId}`;
+    const request = new HttpRequest("DELETE", url);
+    return await this.httpClient.send(request);
+  }
+
   async getSubscription(serviceId, userId, subscriptionId) {
     if (!isValid.serviceId(serviceId)) {
       return newError(

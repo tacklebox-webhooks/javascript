@@ -32,13 +32,9 @@ class HttpClient {
     while (request.attempt <= this.MAX_RETRY_ATTEMPTS) {
       try {
         const response = await axios(config);
-        // console.log(response);
         return response.data;
       } catch (error) {
         if (error.code !== "ECONNABORTED" && error.response) {
-          // console.log(`Error: ${error.response.status} response`);
-          // console.log(error.response.statusText);
-          // console.log(error.response.data);
           const webhookError = error.response.data;
           return newError(webhookError.error_type, webhookError.detail);
         } else if (error.code !== "ECONNABORTED") {

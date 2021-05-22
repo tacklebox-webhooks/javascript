@@ -28,6 +28,26 @@ class UserApi {
     return await this.httpClient.send(request);
   }
 
+  async deleteUser(serviceId, userId) {
+    if (!isValid.serviceId(serviceId)) {
+      return newError(
+        errorTypes.missing_parameter,
+        "The deleteUser method must be invoked with a non-empty string serviceId argument."
+      );
+    }
+
+    if (!isValid.userId(userId)) {
+      return newError(
+        errorTypes.missing_parameter,
+        "The deleteUser method must be invoked with a non-empty string userId argument."
+      );
+    }
+
+    const url = `${this.baseUrl}/${serviceId}/users/${userId}`;
+    const request = new HttpRequest("DELETE", url);
+    return await this.httpClient.send(request);
+  }
+
   async getUser(serviceId, userId) {
     if (!isValid.serviceId(serviceId)) {
       return newError(
@@ -60,12 +80,6 @@ class UserApi {
     const request = new HttpRequest("GET", url);
     return await this.httpClient.send(request);
   }
-
-  // async deleteService(serviceId) {
-  //   const url = `${this.baseUrl}/${serviceId}`;
-  //   const request = new HttpRequest("DELETE", url);
-  //   return await this.httpClient.send(request);
-  // }
 }
 
 module.exports = UserApi;

@@ -39,11 +39,23 @@ class EventTypeApi {
     return await this.httpClient.send(request);
   }
 
-  // async deleteEventType(serviceId, eventTypeId) {
-  //   const url = `${this.baseUrl}/${serviceId}/event_types/${eventTypeId}`;
-  //   const request = new HttpRequest("DELETE", url);
-  //   return await httpClient.send(request);
-  // }
+  async deleteEventType(serviceId, eventTypeId) {
+    if (!isValid.serviceId(serviceId)) {
+      return newError(
+        errorTypes.missing_parameter,
+        "The deleteEventType method must be invoked with a non-empty string serviceId argument."
+      );
+    } else if (!isValid.eventTypeId(eventTypeId)) {
+      return newError(
+        errorTypes.missing_parameter,
+        "The deleteEventType method must be invoked with a non-empty string eventTypeId argument."
+      );
+    }
+
+    const url = `${this.baseUrl}/${serviceId}/event_types/${eventTypeId}`;
+    const request = new HttpRequest("DELETE", url);
+    return await this.httpClient.send(request);
+  }
 
   async getEventType(serviceId, eventTypeId) {
     if (!isValid.serviceId(serviceId)) {

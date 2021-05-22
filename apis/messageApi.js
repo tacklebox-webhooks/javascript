@@ -2,7 +2,7 @@ const HttpClient = require("./httpClient");
 const HttpRequest = require("./httpRequest");
 const { newError, isValid, errorTypes } = require("./error");
 
-class EventApi {
+class MessageApi {
   constructor(config) {
     this.baseUrl = `${config.baseUrl}/services`;
     this.httpClient = new HttpClient(config.apiKey);
@@ -78,4 +78,4 @@ class EventApi {
   }
 }
 
-module.exports = EventApi;
+module.exports = MessageApi;
