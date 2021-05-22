@@ -1,20 +1,17 @@
-const AuthorizationApi = require("./apis/authorization");
-const ServiceApi = require("./apis/service");
-const EventTypeApi = require("./apis/eventType");
-const UserApi = require("./apis/user");
-const SubscriptionApi = require("./apis/subscription");
-const EventApi = require("./apis/event");
-const MessageApi = require("./apis/message");
+const Service = require("./components/service");
+const EventType = require("./components/eventType");
+const User = require("./components/user");
+const Subscription = require("./components/subscription");
+const Event = require("./components/event");
+const Message = require("./components/message");
 
 class Tacklebox {
-  constructor(apiKey, serviceUrl) {
+  constructor(apiKey, baseUrl) {
     const config = {
       apiKey,
-      baseUrl: serviceUrl,
+      baseUrl,
     };
 
-    this.configuration = config;
-    // this.authorization = new Authorization(config);
     this.service = new Service(config);
     this.eventType = new EventType(config);
     this.user = new User(config);
@@ -23,133 +20,5 @@ class Tacklebox {
     this.message = new Message(config);
   }
 }
-exports.Tacklebox = Tacklebox;
 
-// class Authorization {
-//   constructor(config) {
-//     this.api = new AuthorizationApi(config);
-//   }
-//   async authorizeDashboardUser(serviceId, userId) {
-//     return await this.api.authorizeDashboardUser(serviceId, userId);
-//   }
-//   async logout(serviceId, userId) {
-//     return await this.api.logoutDashboardUser(serviceId, userId);
-//   }
-// }
-
-class Service {
-  constructor(config) {
-    this.api = new ServiceApi(config);
-  }
-  async list() {
-    return await this.api.listServices();
-  }
-  async create(serviceData) {
-    return await this.api.createService(serviceData);
-  }
-  async get(serviceId) {
-    return await this.api.getService(serviceId);
-  }
-  // async delete(serviceId) {
-  //   return await this.api.deleteService(serviceId);
-  // }
-}
-
-class EventType {
-  constructor(config) {
-    this.api = new EventTypeApi(config);
-  }
-  async list(serviceId) {
-    return await this.api.listEventTypes(serviceId);
-  }
-  async create(serviceId, eventTypeData) {
-    return await this.api.createEventType(serviceId, eventTypeData);
-  }
-  async get(serviceId, eventTypeId) {
-    return await this.api.getEventType(serviceId, eventTypeId);
-  }
-  // async delete(serviceId, eventTypeId) {
-  //   return await this.api.deleteEventType(serviceId, eventTypeId);
-  // }
-}
-
-class User {
-  constructor(config) {
-    this.api = new UserApi(config);
-  }
-  async list(serviceId) {
-    return await this.api.listUsers(serviceId);
-  }
-  async create(serviceId, userData) {
-    return await this.api.createUser(serviceId, userData);
-  }
-  async get(serviceId, userId) {
-    return await this.api.getUser(serviceId, userId);
-  }
-  // async delete(serviceId, userId) {
-  //   return this.api.deleteUser(serviceId, userId);
-  // }
-}
-
-class Subscription {
-  constructor(config) {
-    this.api = new SubscriptionApi(config);
-  }
-  async list(serviceId, userId) {
-    return await this.api.listSubscriptions(serviceId, userId);
-  }
-  async create(serviceId, userId, subscriptionData) {
-    return await this.api.createSubscription(
-      serviceId,
-      userId,
-      subscriptionData
-    );
-  }
-  async get(serviceId, userId, subscriptionId) {
-    return await this.api.getSubscription(serviceId, userId, subscriptionId);
-  }
-  async update(serviceId, userId, subscriptionId, subscriptionData) {
-    return await this.api.updateSubscription(
-      serviceId,
-      userId,
-      subscriptionId,
-      subscriptionData
-    );
-  }
-  // async getSecret(serviceId, userId, subscriptionId) {
-  //   return await this.api.getSecret(serviceId, userId, subscriptionId);
-  // }
-  // async delete(serviceId, userId, subscriptionId) {
-  //   return await this.api.deleteSubscription(serviceId, userId, subscriptionId);
-  // }
-}
-
-class Event {
-  constructor(config) {
-    this.api = new EventApi(config);
-  }
-  async list(serviceId, userId) {
-    return await this.api.listEvents(serviceId, userId);
-  }
-  async create(serviceId, userId, eventData) {
-    return await this.api.createEvent(serviceId, userId, eventData);
-  }
-  async get(serviceId, userId, eventId) {
-    return await this.api.getEvent(serviceId, userId, eventId);
-  }
-}
-
-class Message {
-  constructor(config) {
-    this.api = new MessageApi(config);
-  }
-  async list(serviceId, userId) {
-    return await this.api.listMessages(serviceId, userId);
-  }
-  async resend(serviceId, userId, messageId) {
-    return await this.api.resendMessage(serviceId, userId, messageId);
-  }
-  async get(serviceId, userId, messageId) {
-    return await this.api.getMessage(serviceId, userId, messageId);
-  }
-}
+module.exports = Tacklebox;

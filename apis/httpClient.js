@@ -6,7 +6,7 @@ class HttpClient {
     this.MAX_RETRY_ATTEMPTS = 5;
     this.MAX_TIMEOUT = 5000;
     this.headers = {
-      "X-Api-Key": apiKey,
+      "x-api-key": apiKey,
       "Content-Type": "application/json",
     };
   }
@@ -32,12 +32,13 @@ class HttpClient {
     while (request.attempt <= this.MAX_RETRY_ATTEMPTS) {
       try {
         const response = await axios(config);
+        // console.log(response);
         return response.data;
       } catch (error) {
         if (error.code !== "ECONNABORTED" && error.response) {
-          console.log(`Error: ${error.response.status} response`);
-          console.log(error.response.statusText);
-          console.log(error.response.data);
+          // console.log(`Error: ${error.response.status} response`);
+          // console.log(error.response.statusText);
+          // console.log(error.response.data);
           const webhookError = error.response.data;
           return newError(webhookError.error_type, webhookError.detail);
         } else if (error.code !== "ECONNABORTED") {
