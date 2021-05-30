@@ -65,7 +65,7 @@ tacklebox.service.create({ name: 'service1' });
 ```
 
 Once you create services, event types, users and subscriptions,
-You can create a new event like so:
+you can create a new event like so:
 
 ```javascript
 const serviceId = "d90af763-5839-4a90-834c-5512980984f5";
