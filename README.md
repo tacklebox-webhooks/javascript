@@ -74,7 +74,7 @@ const userId = "cabea1b5-b485-41b7-8146-72ece22dc458";
 const eventData = {
   event_type: "greet",
   payload: {
-  	message: "Hello from the JavaScript wrapper!"
+    message: "Hello from the JavaScript wrapper!"
   },
   idempotency_key: "1"
 }
