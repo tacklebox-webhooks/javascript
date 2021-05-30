@@ -45,7 +45,7 @@ npm install tacklebox-lib
 
 ### Use the JavaScript library
 
-Once you install the JavaScript library for Tacklebox, you can start using like so:
+Once you install the JavaScript library for Tacklebox, you can start using it like so:
 
 ```javascript
 const Tacklebox = require('tacklebox-lib');
