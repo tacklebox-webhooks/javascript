@@ -43,7 +43,7 @@ class SubscriptionApi {
     if (!isValid.subscriptionData(subscriptionData)) {
       return newError(
         errorTypes.missing_parameter,
-        "The createSubscription method must be invoked with non-empty url and eventType arguments."
+        "The createSubscription method must be invoked with non-empty url and eventTypes arguments."
       );
     }
 

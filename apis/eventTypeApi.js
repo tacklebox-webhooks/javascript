@@ -25,12 +25,12 @@ class EventTypeApi {
     if (!isValid.serviceId(serviceId)) {
       return newError(
         errorTypes.missing_parameter,
-        "The createEventTypes method must be invoked with a non-empty string serviceId argument."
+        "The createEventType method must be invoked with a non-empty string serviceId argument."
       );
     } else if (!isValid.eventTypeData(eventTypeData)) {
       return newError(
         errorTypes.missing_parameter,
-        "The createEventTypes method must be invoked with an eventTypeData object that contains a non-empty string name property."
+        "The createEventType method must be invoked with an eventTypeData object that contains a non-empty string name property."
       );
     }
 
