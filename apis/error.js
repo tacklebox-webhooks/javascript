@@ -41,6 +41,10 @@ const isValid = {
     return this.id(id);
   },
   subscriptionData(data) {
+    if (data.event_types) {
+      data.eventTypes = data.event_types;
+    }
+    
     return (
       data.url &&
       typeof data.url === "string" &&
@@ -49,14 +53,30 @@ const isValid = {
     );
   },
   subscriptionUpdateData(data) {
-    return data.event_types && data.event_types.length > 0;
+    if (data.event_types) {
+      data.eventTypes = data.event_types;
+    }
+    
+    return data.eventTypes && data.eventTypes.length > 0;
   },
   eventId(id) {
     return this.id(id);
   },
   eventData(data) {
+    if (data.event_type) {
+      data.eventType = data.event_type;
+    }
+    
+    if (data.idempotency_key) {
+      data.idempotencyKey = data.idempotency_key;
+    }
+    
     return (
-      data.event_type && typeof data.event_type === "string" && data.payload
+      data.eventType &&
+      typeof data.eventType === "string" &&
+      data.idempotencyKey &&
+      typeof data.idempotencyKey === "string" &&
+      data.payload
     );
   },
   messageId(id) {
