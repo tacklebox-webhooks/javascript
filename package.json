@@ -1,6 +1,6 @@
 {
   "name": "tacklebox-lib",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Client library for Tacklebox, an open-source serverless framework that offers webhooks as a service.",
   "main": "index.js",
   "scripts": {
