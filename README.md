@@ -19,7 +19,7 @@ It includes:
 - a management UI
 
 
-You can read more about our case study [here](https://tacklebox-webhooks.github.io"),
+You can read more about our case study [here](https://tacklebox-webhooks.github.io),
 and you can also watch our presentation [here](https://www.youtube.com/watch?v=QEFFlWNNwk8&t=1s).
 
 ## The Team
